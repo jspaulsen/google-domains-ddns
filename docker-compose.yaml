@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  google-domain-ddns:
+    image: google-domains-ddns:latest
+    environment:
+      DOMAIN: api.yeebs.dev
+      USERNAME: 0n6L4Fz58c8VAoSl
+      PASSWORD: 3LX3Kx60cIZA0pRg
+      LOG_LEVEL: DEBUG
