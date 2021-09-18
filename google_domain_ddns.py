@@ -23,7 +23,7 @@ logger.setLevel(os.getenv('LOG_LEVEL', 'INFO'))
 class DomainClient:
     def __init__(self, username: str, password: str) -> None:
         self.url = "https://domains.google.com/nic/update"
-        self.user_agent = "google-domain-ddns-updater fatiguely@gmail.com"
+        self.user_agent = "google-domain-ddns-updater"
 
         self.username = username
         self.password = password
@@ -36,7 +36,6 @@ class DomainClient:
             auth=(self.username, self.password),
         )
 
-        print(response.text)
         response.raise_for_status()
         return response.text
 
