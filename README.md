@@ -18,3 +18,11 @@
 ## Development
 
 Container can be build and test via `./test.sh`
+
+## Publish
+```
+    docker buildx create --platform linux/amd64,linux/arm/v7 --use
+    docker run --privileged --rm tonistiigi/binfmt --install all
+
+    ./publish.sh
+```
