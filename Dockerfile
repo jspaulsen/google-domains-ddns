@@ -1,4 +1,4 @@
-FROM python:3.9-alpine AS base
+FROM python:3.9.7-slim-bullseye AS base
 
 WORKDIR /usr/src/app
 
@@ -10,7 +10,7 @@ COPY google_domain_ddns.py .
 CMD [ "python", "google_domain_ddns.py" ]
 
 
-FROM python:3.9-alpine AS test
+FROM python:3.9.7-slim-bullseye AS test
 
 WORKDIR /usr/src/app
 
