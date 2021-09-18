@@ -14,7 +14,7 @@ REQUIRED_ENV_VAR = [
 ]
 
 
-logging.basicConfig(format='%(asctime)s %(message)s')
+logging.basicConfig(format='[%(asctime)s] %(message)s')
 
 logger = logging.getLogger(__name__)
 logger.setLevel(os.getenv('LOG_LEVEL', 'INFO'))
