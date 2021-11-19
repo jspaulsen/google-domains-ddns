@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 VERSION=$(cat VERSION)
 PREFIX="jspaulsen/"
@@ -9,7 +9,7 @@ TARGET=${2:-base}
 BRANCH=$(git symbolic-ref --short -q HEAD)
 INCLUDE_LATEST=""
 
-if [[ $BRANCH == "main" ]]; then
+if [ "$BRANCH" = "main" ]; then
     INCLUDE_LATEST="-t ${PREFIX}${TAG}"
 else
     echo "Branch is not main; not uploading latest tag"
