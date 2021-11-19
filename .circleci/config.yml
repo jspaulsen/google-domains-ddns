@@ -25,7 +25,6 @@ jobs:
             docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
             docker context create xbuilder
             docker buildx create xbuilder --name xbuilder --use
-            docker buildx inspect --bootstrap
       - run:
           name: Publish Container
           command: ./publish.sh
@@ -34,15 +33,14 @@ workflows:
   version: 2
   build-main:
     jobs:
-      # - build-test
+      - build-test
       - publish:
           context:
             - Docker Credentials
-          # requires:
-          #   - build-test
+          requires:
+            - build-test
           filters:
             branches:
               only:
                 - main
                 - develop
-                - feature/ci-cd-integration
