@@ -11,19 +11,24 @@ jobs:
           command: ./test.sh
   publish:
     docker:
-      - image: cimg/base:stable
+      - image: drpsychick/dind-buildx:19-dind
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 19.03.14
+      - setup_remote_docker
       - run:
           name: Login to Docker Hub
           command: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_LOGIN" --password-stdin
-      - run: |
-          export DOCKER_CLI_EXPERIMENTAL=enabled
-          docker buildx create --name multiarch-builder --driver docker-container --use tls-environment
-          docker buildx create --platform linux/amd64,linux/arm/v7 --use
-          ./publish.sh
+      - run:
+          name: Setup Docker buildx
+          command: |
+            docker buildx install
+            docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+            docker context create xbuilder
+            docker buildx create xbuilder --name xbuilder --use
+            docker buildx inspect --bootstrap
+      - run:
+          name: Publish Container
+          command: ./publish.sh
 
 workflows:
   version: 2
