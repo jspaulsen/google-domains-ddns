@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 VERSION=$(cat VERSION)
 TAG="${1:-"google-domains-ddns"}"
