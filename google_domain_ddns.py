@@ -70,6 +70,7 @@ def main():
     error_retry_interval = pendulum.duration(minutes=5)
 
     while True:
+        result = None
         next_sleep = interval
 
         try:
@@ -78,11 +79,11 @@ def main():
             logger.exception(f"An exception occurred attempting to update DDNS: ")
             next_sleep = error_retry_interval
 
-        if '911' in result:
+        if result and '911' in result:
             logger.warning(f"An error occurred on the backend; waiting 5 minutes...")
             next_sleep = error_retry_interval
 
-        if not ('good' in result or 'nochg' in result):
+        if result and not ('good' in result or 'nochg' in result):
             logger.error(
                 "An error occurred attempting to update DDNS entry; these are not considered retryable and "
                 f"manual intervention is likely required:  Response: {result}"
